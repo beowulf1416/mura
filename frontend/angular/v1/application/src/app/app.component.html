@@ -1,0 +1,81 @@
+<div id="wrapper-app">
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" routerLink="/" (click)="toggle_nav(sidenav)">APP</a>
+    <form class="form-inline form-search w-100">
+      <input type="search" 
+        class="form-control form-control-dark w-100" 
+        placeholder="Search" 
+        aria-label="Search" />
+    </form>
+    <ul id="menu-top" class="nav">
+      <!-- <li class="nav-item dropdown text-nowrap">
+        <a id="nav-dropdown" 
+          class="dropdown-toggle" 
+          href="#"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false">
+          <i class="material-icons">supervised_user_circle</i>
+        </a>
+      </li> -->
+      <li class="nav-item text-nowrap">
+        <button type="button" class="btn btn-primary">
+          <i class="material-icons">message</i> <span class="badge badge-light">9</span>
+        </button>
+      </li>
+    </ul><!-- #menu-top -->
+  </nav><!-- #nav-app-main -->
+  <mat-sidenav-container id="container-sidenav" fullscreen>
+    <mat-sidenav #sidenav id="sidenav-nav" class="col-sm-3 col-md-2 mr-0">
+      <nav id="nav-app-side">
+        <ng-container *ngIf="user$ | async as user">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a title="Sign In" 
+                class="nav-link active" 
+                routerLink="/user/signin" 
+                (click)="toggle_nav(sidenav)" 
+                *ngIf="!user.is_signed_in">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a title="Sign Out" 
+                class="nav-link active" 
+                routerLink="/user/signout" 
+                (click)="toggle_nav(sidenav)" 
+                *ngIf="user.is_signed_in">Sign Out</a>
+            </li>
+          </ul><!-- .nav -->
+          <div class="nav-divider"></div>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a title="Dashboard" 
+                class="nav-link active" 
+                routerLink="/dashboard" 
+                (click)="toggle_nav(sidenav)">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a title="Inventory" 
+                class="nav-link active" 
+                routerLink="/inventory" 
+                (click)="toggle_nav(sidenav)" 
+                *ngIf="user.has_permission('inventory.dashboard')">Inventory</a>
+            </li>
+            <li class="nav-divider"></li>
+            <li class="nav-item">
+              <a title="Admin" 
+                class="nav-link active" 
+                routerLink="/admin" 
+                (click)="toggle_nav(sidenav)"
+                *ngIf="user.has_permission('admin.dashboard')">Admin</a>
+            </li>
+          </ul><!-- .nav -->
+        </ng-container>
+      </nav><!-- #nav-app-side -->
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+      <app-notifications></app-notifications>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div><!-- #wrapper-app -->

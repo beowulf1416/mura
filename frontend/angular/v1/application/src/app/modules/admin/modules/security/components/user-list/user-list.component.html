@@ -1,0 +1,27 @@
+<div id="wrapper-user-list">
+  <nav class="menu">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar">
+      <div class="btn-group" role="group" aria-label="Common">
+        <button type="button" class="btn btn-secondary" (click)="refresh()">
+            <i class="material-icons">refresh</i>
+        </button>
+      </div><!-- .btn-group -->
+    </div><!-- .btn-toolbar -->
+  </nav>
+  <div class="wrapper-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of roles">
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- .wrapper-table -->
+</div><!-- #wrapper-user-list -->

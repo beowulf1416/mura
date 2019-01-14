@@ -1,0 +1,37 @@
+<div id="wrapper-signin">
+  <main role="main">
+    <form class="form card" (submit)="submit()" [formGroup]="form">
+      <div class="card-body">
+        <h5 class="card-title">Sign In</h5>
+        <h6 class="card-subtitle">Please provide your credentials</h6>
+        <mat-form-field>
+          <input type="email" id="email" name="email" placeholder="Email" required matInput formControlName="email" />
+          <mat-error *ngIf="form.get('email').hasError('required')">
+            Email address is required
+          </mat-error>
+          <mat-error *ngIf="form.get('email').hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" id="password" name="password" placeholder="Password" required minlength="6" matInput formControlName="password" />
+          <mat-error *ngIf="form.get('password').hasError('required')">
+            Passwords are required
+          </mat-error>
+          <mat-error *ngIf="form.get('password').hasError('minlength')">
+            Passwords have a minimum length of 6
+          </mat-error>
+        </mat-form-field>
+        <div class="actions">
+          <button type="submit" class="btn btn-primary">Sign In</button>
+          <nav>
+            <ul class="nav flex-column">
+              <li><a title="Forgot Password" class="nav-link card-link" routerLink="/user/forgot-pw">Forgot Password</a></li>
+              <li><a title="Sign Up" class="nav-link card-link" routerLink="/user/signup">Sign Up</a></li>
+            </ul>
+          </nav>
+        </div><!-- .actions -->
+      </div><!-- .card-body -->
+    </form>
+  </main>
+</div><!-- #wrapper-signin -->

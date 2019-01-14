@@ -1,0 +1,78 @@
+body {
+    background: #d5d5d5;
+}
+
+#wrapper-app {
+    padding: 10px;
+}
+
+/* navbar */
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form {
+    padding: 0;
+    border: 0;
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.navbar .form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.navbar .form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  }
+
+.navbar #menu-top {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+/* navbar */
+
+/* nav */
+.nav .nav-divider {
+    border-bottom: solid 1px black;
+}
+
+
+/* container-sidenav */
+#container-sidenav {
+    margin-top: 50px;
+}
+
+/* sidenav */
+/*
+#sidenav-nav {
+    padding-top: 50px;
+}
+*/
+
+/* form */
+form fieldset legend {
+    font-size: 0.8em;
+}
+
+form .mat-form-field {
+    width: 80%;
+}
+
+/* messages */
+.wrapper-messages {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

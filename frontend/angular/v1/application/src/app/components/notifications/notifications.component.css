@@ -1,0 +1,6 @@
+.wrapper-notifications {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: solid 1px black;
+}
