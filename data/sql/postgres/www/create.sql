@@ -1,4 +1,4 @@
-create schema www;
+create schema if not exists www;
 set schema 'www';
 
 /** tables **/

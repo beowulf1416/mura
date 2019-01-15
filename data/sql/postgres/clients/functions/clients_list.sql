@@ -1,22 +1,19 @@
 create or replace function clients_list (
     p_items int,
-    p_offset int,
-    p_filter text[]
+    p_offset int
 )
 returns table (
     client_id clients.clients.id%type,
     active clients.clients.active%type,
     created_ts clients.clients.created_ts%type,
-    name clients.clients.name%type,
+    name clients.clients.name%type, 
     description clients.clients.description%type
 )
 as $$
 declare
     t_sql text;
 begin
-    t_sql := '
-
-    ';
+    t_sql := '';
 
     return query execute format(
         'select

@@ -1,14 +1,14 @@
 create table if not exists countries (
-    id bigserial,
-    name text,
-    full_name text,
-    local_name text,
+    name text not null,
     alpha_2 varchar(2),
     alpha_3 varchar(3),
-    numeric int,
-    remarks text,
-    is_independent boolean,
-    language_alpha_2 varchar(2),
-    language_alpha_3 varchar(3),
-    constraint pk_countries primary key (id)
+    code varchar(3) not null,
+    iso_3166_2 varchar(20),
+    region varchar(20),
+    sub_region varchar(50),
+    intermediate_region varchar(50),
+    region_code varchar(3),
+    sub_region_code varchar(3),
+    intermediate_region_code varchar(3),
+    constraint pk_countries primary key (code)
 );
