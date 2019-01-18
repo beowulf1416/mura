@@ -3,6 +3,8 @@ set schema 'common';
 
 /** tables **/
 \ir tables/countries.sql
+\ir tables/dimensions.sql
+\ir tables/uom.sql
 
 
 /** functions **/

@@ -5,7 +5,6 @@ create table if not exists uom (
     symbol varchar(10),
     constraint pk_uom primary key (id),
     constraint u_uom_1 unique (dimension_id, name),
-    constraint u_uom_2 unique (dimension_id, symbol),
     constraint fk_uom_1 foreign key (dimension_id) references common.dimensions(id)
         on delete restrict on update restrict
 );

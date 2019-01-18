@@ -14,7 +14,7 @@ begin
         p_client_id,
         p_name
     )
-    return currval(pg_get_serial_sequence('inventory.items', 'id')) into t_item_id;
+    returning currval(pg_get_serial_sequence('inventory.items', 'id')) into t_item_id;
 
     return t_item_id;
 end;

@@ -9,4 +9,4 @@ insert into dimensions (id, name) values
 (3, 'volume'),
 (4, 'mass');
 
-\copy units (name, symbol) from '../../csv/units_of_measure.csv' delimiter ',' csv header;
+\copy uom (dimension_id, name, symbol) from '../../csv/units_of_measure.csv' delimiter ',' csv header;
