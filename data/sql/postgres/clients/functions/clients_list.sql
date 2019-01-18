@@ -10,13 +10,14 @@ returns table (
     description clients.clients.description%type
 )
 as $$
-declare
-    t_sql text;
 begin
-    t_sql := '';
-
     return query execute format(
         'select
+            c.id,
+            c.active,
+            c.created_ts,
+            c.name,
+            c.description
          from clients.clients c
          limit $1
          offset $2

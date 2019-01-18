@@ -11,3 +11,4 @@ set schema 'clients';
 
 \ir functions/client_add.sql
 \ir functions/clients_list.sql
+\ir functions/client_get.sql
