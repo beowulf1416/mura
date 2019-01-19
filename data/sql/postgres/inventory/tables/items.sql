@@ -6,11 +6,14 @@ create table if not exists items (
     name varchar(100) not null,
     sku varchar(100),
     upc_ean varchar(100),
+    manufacturer varchar(100),
     model varchar(100),
     version varchar(20),
     perishable boolean not null default false,
     constraint pk_items primary key (id),
     constraint u_items_1 unique (client_id, name),
+    constraint u_items_2 unique (client_id, sku),
+    constraint u_items_3 unique (client_id, upc_ean),
     constraint fk_items_1 foreign key (id) references clients.clients(id) 
         on delete restrict on update restrict
 );

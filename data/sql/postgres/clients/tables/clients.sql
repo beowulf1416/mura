@@ -4,6 +4,7 @@ create table if not exists clients (
     created_ts timestamp without time zone not null default(now() at time zone 'utc'),
     name varchar(100) not null,
     description text,
+    domain varchar(100),
     constraint pk_clients primary key (id),
     constraint u_clients_1 unique (name)
 );

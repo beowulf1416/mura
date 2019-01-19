@@ -4,7 +4,7 @@ create table if not exists item_locations (
     item_id bigint not null,
     locator_id bigint not null,
     expiry date,
-    unit_id bigint not null,
+    uom_id bigint not null,
     quantity numeric(10,4) not null default 0,
     constraint pk_item_locations primary key (client_id, item_id, locator_id),
     constraint fk_item_locations_1 foreign key (client_id) references clients.clients(id) 
@@ -12,5 +12,8 @@ create table if not exists item_locations (
     constraint fk_item_locations_2 foreign key (item_id) references inventory.items(id) 
         on delete restrict on update restrict,
     constraint fk_item_locations_3 foreign key (locator_id) references inventory.locations(id) 
-        on delete restrict on update restrict
+        on delete restrict on update restrict,
+    constraint fk_item_locations_4 foreign key (uom_id) references common.uom(id)
+        on delete restrict on update restrict,
+    constraint chk_item_locations_1 check (quantity >= 0)
 );

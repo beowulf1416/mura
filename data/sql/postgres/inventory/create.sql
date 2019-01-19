@@ -17,3 +17,8 @@ set schema 'inventory';
 
 /** functions **/
 \ir functions/item_add.sql
+\ir functions/item_add_component.sql
+\ir functions/item_get_balance.sql
+\ir functions/item_receive.sql
+\ir functions/item_withdraw.sql
+\ir functions/item_set_expiry.sql
