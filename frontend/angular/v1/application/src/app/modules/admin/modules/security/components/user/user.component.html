@@ -1,3 +1,26 @@
-<p>
-  user works!
-</p>
+<div class="wrapper-security-user">
+  <nav class="menu">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar">
+      <div class="btn-group" role="group" aria-label="Common">
+        <button title="Refresh" type="button" class="btn btn-secondary" (click)="back()">
+            <i class="material-icons">arrow_back</i>
+        </button>
+      </div><!-- .btn-group -->
+      <div class="btn-group" role="group" aria-label="Common">
+        <button title="Save" type="button" class="btn btn-secondary" (click)="save()">
+          <i class="material-icons">save</i>
+        </button>
+      </div>
+    </div><!-- .btn-toolbar -->
+  </nav>
+  <div class="wrapper-item">
+    <form class="form" (submit)="save()" [formGroup]="form">
+      <div class="wrapper-message">
+        <div class="message" *ngFor="let m of messages">{{ m }}</div>
+      </div><!-- .message -->
+      <mat-form-field>
+        <input type="text" id="email" name="email" placeholder="Email" required minlength="6" matInput formControlName="email" /> 
+      </mat-form-field>
+    </form>
+  </div><!-- #wrapper-item -->
+</div><!-- .wrapper-security-user -->

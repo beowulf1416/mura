@@ -27,4 +27,10 @@ export class SecurityService {
       sort: sort
     }));
   }
+
+  user(user_id: string): Observable<ApiResult> {
+    return this.http.post<ApiResult>(ModuleUrls.url_security_user, JSON.stringify({
+      user_id: user_id
+    }));
+  }
 }

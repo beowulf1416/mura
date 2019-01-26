@@ -8,6 +8,7 @@ import { MainComponent } from './components/main/main.component';
 import { PermissionListComponent } from './components/permission-list/permission-list.component';
 import { RoleListComponent } from './components/role-list/role-list.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,14 @@ const routes: Routes = [
       {
         path: 'users',
         component: UserListComponent
+      },
+      {
+        path: 'users/new',
+        component: UserComponent
+      },
+      {
+        path: 'users/:id',
+        component: UserComponent
       },
       {
         path: 'permissions',

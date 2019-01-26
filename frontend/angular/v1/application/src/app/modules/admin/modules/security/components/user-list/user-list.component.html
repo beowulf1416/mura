@@ -6,6 +6,11 @@
             <i class="material-icons">refresh</i>
         </button>
       </div><!-- .btn-group -->
+      <div class="btn-group" role="group" aria-label="Common">
+        <button type="button" class="btn btn-secondary" (click)="user_new()">
+          <i class="material-icons">add</i>
+        </button>
+      </div><!-- .btn-group -->
     </div><!-- .btn-toolbar -->
   </nav>
   <div class="wrapper-table">
@@ -13,13 +18,31 @@
       <thead>
         <tr>
           <th>Id</th>
-          <th>Name</th>
+          <th>Email</th>
+          <th>Active</th>
         </tr>
       </thead>
+      <tfoot>
+        <tr>
+          <td>
+            <nav aria-label="pager">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="nav page-link" href="#" (click)="pager_previous()">Previous</a>
+                </li><!-- .page-item -->
+                <li class="page-item">
+                  <a class="nav page-link" href="#" (click)="pager_next()">Next</a>
+                </li><!-- .page-item -->
+              </ul>
+            </nav>
+          </td>
+        </tr>
+      </tfoot>
       <tbody>
-        <tr *ngFor="let r of roles">
-          <td></td>
-          <td></td>
+        <tr *ngFor="let u of users">
+          <td><a class="nav nav-link" routerLink="/admin/security/users/{{ u.id }}">{{ u.id }}</a></td>
+          <td><a class="nav nav-email" href="mailto: {{ u.email }}">{{ u.email }}</a></td>
+          <td><i class="material-icons">{{ u.active ? "check_box" : "check_box_outline_blank" }}</i></td>
         </tr>
       </tbody>
     </table>
