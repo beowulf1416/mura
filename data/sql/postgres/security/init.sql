@@ -2,9 +2,9 @@ create or replace function init()
 returns void
 as $$
 declare
-    t_user_id bigint;
-    t_role_id bigint;
-    t_permission_id bigint;
+    t_user_id security.users.id%type;
+    t_role_id security.roles.id%type;
+    t_permission_id security.permissions.id%type;
 begin
     select
         security.role_add('admin', 'default administrative role')
@@ -41,6 +41,12 @@ begin
     -- security
     select
         security.permission_add('security.users.list', 'allow user to view list of users')
+        into
+        t_permission_id;
+    perform security.add_permission_to_role(t_role_id, t_permission_id);
+
+    select
+        security.permission_add('security.user.info', 'allow user to view user details')
         into
         t_permission_id;
     perform security.add_permission_to_role(t_role_id, t_permission_id);

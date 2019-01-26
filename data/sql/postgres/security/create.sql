@@ -24,6 +24,10 @@ set schema 'security';
 \ir functions/users/user_has_permission.sql
 \ir functions/users/user_get_permissions.sql
 
+\ir functions/users/user_list.sql
+\ir functions/users/user_info.sql
+\ir functions/users/user_client_list.sql
+
 -- password management
 \ir functions/users/user_password_request.sql
 \ir functions/users/user_password_token_validate.sql
