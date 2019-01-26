@@ -23,6 +23,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { ClientSelectComponent } from './components/client-select/client-select.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     DashboardComponent,
     ForbiddenComponent,
     MessagesComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ClientSelectComponent
   ],
   imports: [
     BrowserModule,

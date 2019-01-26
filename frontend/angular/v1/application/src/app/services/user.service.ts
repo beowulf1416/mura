@@ -90,4 +90,8 @@ export class UserService {
       });
     });
   }
+
+  clients(): Observable<ApiResult> {
+    return this.http.post<ApiResult>(Urls.url_user_clients, JSON.stringify({}));
+  }
 }

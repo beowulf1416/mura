@@ -5,6 +5,8 @@ import { Title } from '@angular/platform-browser';
 import { User } from './classes/user';
 import { UserService } from './services/user.service';
 import { NotificationService } from './services/notification.service';
+import { ClientSelectComponent } from './components/client-select/client-select.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +21,8 @@ export class AppComponent implements OnInit {
   constructor(
     private title: Title,
     private user_service: UserService,
-    private notification_service: NotificationService
+    private notification_service: NotificationService,
+    public router: Router
   ) {
     this.user$ = user_service.user$;
   }
@@ -38,5 +41,9 @@ export class AppComponent implements OnInit {
 
   toast_close() {
     console.log('AppComponent::toast_close()');
+  }
+
+  client_select() {
+    this.router.navigate(['select', 'client']);
   }
 }

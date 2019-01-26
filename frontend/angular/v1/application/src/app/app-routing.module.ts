@@ -6,6 +6,7 @@ import { AuthGuard } from './classes/auth-guard';
 import { DefaultComponent } from './components/default/default.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { ClientSelectComponent } from './components/client-select/client-select.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'forbidden',
     component: ForbiddenComponent
+  },
+  {
+    path: 'select/client',
+    component: ClientSelectComponent
   },
   {
     path: 'user/signin',

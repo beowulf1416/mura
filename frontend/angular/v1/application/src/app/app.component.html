@@ -20,11 +20,20 @@
         </a>
       </li> -->
       <li class="nav-item text-nowrap">
-        <button type="button" class="btn btn-primary">
+        <button title="Messages" type="button" class="btn btn-primary">
           <i class="material-icons">message</i> <span class="badge badge-light">9</span>
         </button>
-      </li>
+      </li><!-- .nav-item -->
     </ul><!-- #menu-top -->
+    <ng-container *ngIf="user$ | async as user">
+      <button title="Select a Client" 
+        type="button" 
+        class="btn btn-primary" 
+        (click)="client_select()" 
+        *ngIf="user.is_signed_in">
+        <i class="material-icons">supervised_user_circle</i>
+      </button>
+    </ng-container>
   </nav><!-- #nav-app-main -->
   <mat-sidenav-container id="container-sidenav" fullscreen>
     <mat-sidenav #sidenav id="sidenav-nav" class="col-sm-3 col-md-2 mr-0">

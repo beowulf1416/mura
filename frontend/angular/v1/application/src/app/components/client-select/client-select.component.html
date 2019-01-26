@@ -1,0 +1,14 @@
+<div class="wrapper-client-select">
+  <form>
+    <fieldset>
+      <mat-form-field>
+        <mat-select placeholder="Client">
+          <mat-option *ngFor="let c of clients" [value]="c">{{ c.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </fieldset>
+    <fieldset>
+      <button title="Ok" class="btn btn-primary">Ok</button>
+    </fieldset>
+  </form>
+</div><!-- .wrapper-client-select -->

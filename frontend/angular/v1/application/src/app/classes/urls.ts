@@ -5,4 +5,5 @@ export class Urls {
     public static url_user_signin = Urls.base_url + 'v1/user/signin';
     public static url_user_signout = Urls.base_url + 'v1/user/signout';
     public static url_user_permissions = Urls.base_url + 'v1/user/permissions';
+    public static url_user_clients = Urls.base_url + 'v1/user/clients';
 }
