@@ -15,6 +15,11 @@ def includeme(config):
         '/api/v1/user/verify'
     )
 
+    config.add_route(
+        'user.clients',
+        '/api/v1/user/clients'
+    )
+
     # password management
     config.add_route(
         'user.password.reset.request',

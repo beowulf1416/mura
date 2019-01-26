@@ -8,3 +8,8 @@ def includeme(config):
         'security.users',
         '/api/v1/security/users'
     )
+
+    config.add_route(
+        'security.user',
+        '/api/v1/security/user'
+    )

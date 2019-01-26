@@ -54,7 +54,7 @@ def register(request):
             'user.register', 
             (email, password)
         )
-        (token, ) = result[0]
+        (token, ) = result['result'][0]
         
         um = UserMail()
         um.send_verify_mail(token)
@@ -114,7 +114,7 @@ def verify(request):
             'email.verify', 
             (token, )
         )
-        (verified, ) = result[0]
+        (verified, ) = result['result'][0]
         if (verified):
             return {
                 'status': True,
@@ -137,6 +137,43 @@ def verify(request):
                 ],
                 'data': {}
             }
+    except Exception as e:
+        log.error(e)
+        return {
+            'status': False,
+            'messages': [
+                {
+                    'type': 'error',
+                    'text': 'An error occured.'
+                }
+            ],
+            'data': {}
+        }
+
+
+@view_config(
+    route_name='user.clients',
+    renderer='json',
+    request_method='POST'
+)
+def clients(request):
+    log.info('view: user.clients')
+
+    try:
+        provider_name = request.registry.settings['data.provider.security']
+        provider = request.data.get_provider(provider_name)
+    
+        result = provider.query(
+            'user.clients', 
+            ()
+        )
+        clients = [{ 'id': r[0], 'name': r[1] }  for r in result ]
+        return {
+            'status': True,
+            'data': {
+                'clients': clients
+            }
+        }
     except Exception as e:
         log.error(e)
         return {
@@ -182,7 +219,7 @@ def password_request(request):
             'user.password.reset.request', 
             (email, )
         )
-        (token, ) = result[0]
+        (token, ) = result['result'][0]
 
         um = UserMail()
         um.send_password_reset_mail(token)
@@ -312,7 +349,7 @@ def password_token_validate(request):
             'user.password.token.validate', 
             (token, )
         )
-        (email, ) = result[0]
+        (email, ) = result['result'][0]
         return {
             'status': False if email == '' else True,
             'messages': [
@@ -384,20 +421,20 @@ def signin(request):
             'user.authenticate', 
             (email, password)
         )
-        (authentic, ) = result[0]
+        (authentic, ) = result['result'][0]
         if (authentic):
             result = provider.query(
                 'user.get_id',
                 (email, )
             )
-            (user_id, ) = result[0]
+            (user_id, ) = result['result'][0]
             remember(request, user_id)
 
             result = provider.query(
                 'user.permissions',
                 (user_id, )
             )
-            permissions = [ p[0] for p in result]
+            permissions = [ p[0] for p in result['result']]
             log.debug(permissions)
 
             return {
@@ -495,7 +532,7 @@ def permissions(request):
             (session_id, ), 
             True
         )
-        log.debug(result)
+        # log.debug(result)
 
         return {
             'status': False,
