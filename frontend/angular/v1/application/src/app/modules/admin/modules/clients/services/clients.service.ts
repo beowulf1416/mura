@@ -27,6 +27,12 @@ export class ClientsService {
     }));
   }
 
+  view(client_id: number): Observable<ApiResult> {
+    return this.http.post<ApiResult>(ModuleUrls.url_client_view, JSON.stringify({
+      client_id: client_id
+    }));
+  }
+
   add(name: string, description: string): Observable<ApiResult> {
     return this.http.post<ApiResult>(ModuleUrls.url_client_add, JSON.stringify({
       name: name,

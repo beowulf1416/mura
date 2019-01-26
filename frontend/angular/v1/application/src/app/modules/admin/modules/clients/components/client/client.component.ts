@@ -14,6 +14,13 @@ import { Message } from 'src/app/classes/message';
 })
 export class ClientComponent implements OnInit {
 
+  client = {
+    id: 0,
+    active: false,
+    created: Date(),
+    name: '',
+    description: ''
+  };
   messages = Array<String>();
 
   form = new FormGroup({
@@ -34,6 +41,15 @@ export class ClientComponent implements OnInit {
     this.title.setTitle('Client');
     this.route.paramMap.subscribe((p: ParamMap) => {
       const id = p.get('id');
+      this.service.view(Number.parseInt(id, 1)).subscribe((r: ApiResult) => {
+        if (r.status) {
+          this.client = r.data.client;
+          this.form.get('name').setValue(this.client.name);
+          this.form.get('description').setValue(this.client.description);
+        } else {
+          console.error('ClientComponent::ngOnInit()', r.messages);
+        }
+      });
       console.log('ClientComponent::ngOnInit()', id);
     });
   }

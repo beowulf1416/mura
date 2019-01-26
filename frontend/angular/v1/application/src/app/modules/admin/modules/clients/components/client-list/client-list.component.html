@@ -22,8 +22,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let c of clients">
-          <td></td>
-          <td></td>
+          <td>{{ c.id }}</td>
+          <td><a title="{{ c.name }}" class="nav-link" routerLink="/admin/clients/{{ c.id }}">{{ c.name }}</a></td>
         </tr>
       </tbody>
     </table>
