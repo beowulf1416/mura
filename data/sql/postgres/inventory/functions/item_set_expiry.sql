@@ -14,4 +14,4 @@ begin
         and location_id = p_location_id;
 end;
 $$
-language plpgpsql;
+language plpgsql;

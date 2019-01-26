@@ -3,7 +3,7 @@ create or replace function item_get_balance (
 )
 returns table (
     uom_id inventory.item_locations.uom_id%type,
-    balance inventory.item_locations.balance%type
+    quantity inventory.item_locations.quantity%type
 )
 as $$
 begin

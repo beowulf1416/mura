@@ -37,6 +37,15 @@ begin
         t_permission_id;
     perform security.add_permission_to_role(t_role_id, t_permission_id);
 
+
+    -- security
+    select
+        security.permission_add('security.users.list', 'allow user to view list of users')
+        into
+        t_permission_id;
+    perform security.add_permission_to_role(t_role_id, t_permission_id);
+
+
     -- clients
     select
         security.permission_add('clients.list', 'allow user to get a list of clients')
