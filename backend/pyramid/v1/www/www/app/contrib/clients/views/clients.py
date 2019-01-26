@@ -27,13 +27,17 @@ def clients(request):
             'clients.list',
             (pager, filter, sort)
         )
-        log.debug(result)
+        clients = [{ 'id':r[0], 'name':r[3] } for r in result['result'] ]
+        # log.debug(result)
         return {
-            'status': False,
+            'status': True,
+            'data': {
+                'clients': clients
+            },
             'messages': [
                 {
-                    'type': 'error',
-                    'text': 'clients.list'
+                    'type': 'info',
+                    'text': 'success'
                 }
             ]
         }
@@ -59,6 +63,65 @@ def clients(request):
                 }
             ]
         }
+
+
+@view_config(
+    route_name='client.get',
+    renderer='json',
+    request_method=('POST','OPTIONS'),
+    permission='clients.list'
+)
+def client_get(request):
+    log.info('view: client.get')
+
+    params = request.json_body
+    client_id = params['client_id'] if 'client_id' in params else -1
+
+    if (client_id == -1):
+        return {
+            'status': False,
+            'messages': [
+                {
+                    'type': 'error',
+                    'text': 'Client id is required'
+                }
+            ]
+        }
+
+    try:
+        provider_name = request.registry.settings['data.provider.clients']
+        provider = request.data.get_provider(provider_name)
+
+        result = provider.query(
+            'client.get',
+            (client_id, )
+        )
+        (client) = result[0]
+        return {
+            'status': True,
+            'data': {
+                'client': {
+                    'id': client[0],
+                    'active': client[1],
+                    'created': client[2],
+                    'name': client[3],
+                    'description': client[4]
+                } 
+            }
+        }
+    except Exception as e:
+        log.error(e)
+        return {
+            'status': False,
+            'messages': [
+                {
+                    'type': 'error',
+                    'text': 'An error occured'
+                }
+            ]
+        }
+            
+
 
 
 @view_config(

@@ -10,6 +10,11 @@ def includeme(config):
     )
 
     config.add_route(
+        'client.get',
+        '/api/v1/clients/view'
+    )
+
+    config.add_route(
         'clients.add',
         '/api/v1/clients/add'
     )

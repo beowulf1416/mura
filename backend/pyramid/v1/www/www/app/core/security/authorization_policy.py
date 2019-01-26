@@ -27,7 +27,7 @@ class AuthorizationPolicy:
                             'user.has_permission',
                             (p, permission)
                         )
-                        (allowed, ) = result[0]
+                        (allowed, ) = result['result'][0]
                         if (allowed):
                             return Allowed('Allowed')
                         else:
