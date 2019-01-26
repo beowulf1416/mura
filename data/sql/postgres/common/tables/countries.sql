@@ -10,5 +10,9 @@ create table if not exists countries (
     region_code varchar(3),
     sub_region_code varchar(3),
     intermediate_region_code varchar(3),
-    constraint pk_countries primary key (code)
+    constraint pk_countries primary key (code),
+    constraint u_countries_1 unique (alpha_2),
+    constraint u_countries_2 unique (alpha_3),
+    constraint u_countries_3 unique (code),
+    constraint u_countries_4 unique (iso_3166_2)
 );
