@@ -8,6 +8,10 @@ from www.app.core.session import SessionFactory
 from www.app.core.security.authentication_policy import AuthenticationPolicy
 from www.app.core.security.authorization_policy import AuthorizationPolicy
 
+import json
+from pyramid.renderers import JSON
+import datetime
+
 from www.app.core.data.data import Data
 
 
@@ -28,6 +32,13 @@ def includeme(config):
 
     config.set_authentication_policy(AuthenticationPolicy())
     config.set_authorization_policy(AuthorizationPolicy(provider))
+
+    # include json datetime renderer
+    json_renderer = JSON()
+    def datetime_adapter(obj, request):
+        return obj.isoformat()
+    json_renderer.add_adapter(datetime.datetime, datetime_adapter)
+    config.add_renderer('json', json_renderer)
 
     config.include('www.app.core')
     
