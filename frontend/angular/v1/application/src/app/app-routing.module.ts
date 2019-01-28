@@ -7,6 +7,7 @@ import { DefaultComponent } from './components/default/default.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { ClientSelectComponent } from './components/client-select/client-select.component';
+import { ClientJoinComponent } from './components/client-join/client-join.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'select/client',
     component: ClientSelectComponent
+  },
+  {
+    path: 'join/client',
+    component: ClientJoinComponent
   },
   {
     path: 'user/signin',

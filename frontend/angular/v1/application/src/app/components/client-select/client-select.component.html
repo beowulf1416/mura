@@ -1,14 +1,28 @@
-<div class="wrapper-client-select">
-  <form>
-    <fieldset>
-      <mat-form-field>
-        <mat-select placeholder="Client">
-          <mat-option *ngFor="let c of clients" [value]="c">{{ c.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </fieldset>
-    <fieldset>
-      <button title="Ok" class="btn btn-primary">Ok</button>
-    </fieldset>
-  </form>
-</div><!-- .wrapper-client-select -->
+<div id="wrapper-client-select">
+  <main role="main">
+    <form class="form card" (submit)="submit()" [formGroup]="form">
+      <div class="card-body">
+        <caption class="card-title">Please select a Client</caption>
+        <fieldset formGroupName="clients">
+          <mat-form-field>
+            <mat-select placeholder="Client" formControlName="clients">
+              <mat-option *ngFor="let c of clients" [value]="c">{{ c.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </fieldset>
+        <fieldset>
+          <button title="Ok" type="submit" class="btn btn-primary">Select</button>
+        </fieldset>
+        <fieldset>
+          <nav>
+            <ul class="nav">
+              <li class="nav-item">
+                <a title="Request to join" class="nav nav-link" routerLink="/join/client">Join</a>
+              </li><!-- .nav-item -->
+            </ul><!-- .nav -->
+          </nav>
+        </fieldset>
+      </div><!-- .card-body -->
+    </form>
+  </main>
+</div><!-- #wrapper-client-select -->
