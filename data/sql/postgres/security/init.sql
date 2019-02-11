@@ -2,12 +2,19 @@ create or replace function init()
 returns void
 as $$
 declare
+    t_client_id clients.clients.id%type;
     t_user_id security.users.id%type;
     t_role_id security.roles.id%type;
     t_permission_id security.permissions.id%type;
 begin
     select
-        security.role_add('admin', 'default administrative role')
+        clients.client_get_id('default')
+        into
+        t_client_id;
+
+    -- role
+    select
+        security.role_add(t_client_id, 'admin', 'default administrative role')
         into
         t_role_id;
 

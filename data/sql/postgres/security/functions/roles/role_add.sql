@@ -1,4 +1,5 @@
 create or replace function role_add (
+    p_client_id security.roles.client_id%type,
     p_name security.roles.name%type,
     p_description security.roles.description%type
 )
@@ -8,9 +9,11 @@ declare
     t_role_id security.roles.id%type;
 begin
     insert into security.roles (
+        client_id,
         name,
         description
     ) values (
+        p_client_id,
         p_name,
         p_description
     )

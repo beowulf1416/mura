@@ -5,6 +5,7 @@ returns table (
 )
 as $$
 begin
+    return query
     select
         c.id,
         c.name

@@ -13,6 +13,10 @@ set schema 'security';
 \ir tables/role_permissions.sql
 \ir tables/user_roles.sql
 
+-- user client management
+\ir tables/user_clients.sql
+
+
 
 /* functions */
 
@@ -40,3 +44,5 @@ set schema 'security';
 -- role management
 \ir functions/roles/role_add.sql
 \ir functions/roles/add_role_to_user.sql
+\ir functions/roles/role_list.sql
+
