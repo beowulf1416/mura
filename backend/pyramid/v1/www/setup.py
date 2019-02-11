@@ -15,7 +15,8 @@ requires = [
     'pyramid_debugtoolbar',
     'waitress',
     'psycopg2',
-    'PyJWT'
+    'PyJWT',
+    'graphene>=2.0'
 ]
 
 tests_require = [
