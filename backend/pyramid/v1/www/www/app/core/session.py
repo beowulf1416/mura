@@ -99,11 +99,20 @@ def SessionFactory(
 
                 def delete_cookie_callback(request, response):
                     log.debug('Session::delete_cookie_callback()')
+                    # delete session
                     response.delete_cookie(
                         self._cookie_name,
                         self._cookie_path,
                         self._cookie_domain
                     )
+
+                    # delete email
+                    response.delete_cookie(
+                        'email',
+                        self._cookie_path,
+                        self._cookie_domain
+                    )
+
                     self._request = None
                 self._request.add_response_callback(delete_cookie_callback)
             except Exception as e:
@@ -131,6 +140,7 @@ def SessionFactory(
             log.info('Session::_set_cookie()')
 
             try:
+                # set session id
                 jwt_token = jwt.encode(
                     {
                         'session_id': self._session_id
@@ -142,6 +152,17 @@ def SessionFactory(
                 response.set_cookie(
                     self._cookie_name,
                     value = cookie_value,
+                    max_age = self._cookie_max_age,
+                    path = self._cookie_path,
+                    domain = self._cookie_domain,
+                    secure = self._cookie_secure,
+                    httponly = self._cookie_httponly
+                )
+
+                # set email
+                response.set_cookie(
+                    'email',
+                    value = 'test@test.com',
                     max_age = self._cookie_max_age,
                     path = self._cookie_path,
                     domain = self._cookie_domain,

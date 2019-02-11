@@ -167,7 +167,7 @@ def clients(request):
             'user.clients', 
             ()
         )
-        clients = [{ 'id': r[0], 'name': r[1] }  for r in result ]
+        clients = [{ 'id': r[0], 'name': r[1] }  for r in result['result'] ]
         return {
             'status': True,
             'data': {
@@ -430,12 +430,12 @@ def signin(request):
             (user_id, ) = result['result'][0]
             remember(request, user_id)
 
-            result = provider.query(
-                'user.permissions',
-                (user_id, )
-            )
-            permissions = [ p[0] for p in result['result']]
-            log.debug(permissions)
+            # result = provider.query(
+            #     'user.permissions',
+            #     (user_id, )
+            # )
+            # permissions = [ p[0] for p in result['result']]
+            # log.debug(permissions)
 
             return {
                 'status': True,
@@ -447,7 +447,7 @@ def signin(request):
                 ],
                 'data': {
                     'authenticated': True,
-                    'permissions': permissions
+                    # 'permissions': permissions
                 }
             }
         else:
@@ -515,7 +515,7 @@ def signout(request):
     route_name='user.permissions',
     renderer='json',
     request_method=('POST','OPTIONS'),
-    permission='user.authenticated'
+    # permission='user.authenticated'
 )
 def permissions(request):
     log.info('view: user.permissions')
@@ -529,11 +529,20 @@ def permissions(request):
     
         result = provider.query(
             'user.permissions', 
-            (session_id, ), 
-            True
+            (session_id, )
         )
         # log.debug(result)
+        permissions = [ r[0] for r in result['result'] ]
 
+        return {
+            'status': True,
+            'messages': [],
+            'data': {
+                'permissions': permissions
+            }
+        }
+    except Exception as e:
+        log.error(e)
         return {
             'status': False,
             'messages': [
@@ -542,6 +551,40 @@ def permissions(request):
                     'text': 'An error occured'
                 }
             ],
+            'data': {}
+        }
+
+
+@view_config(
+    route_name='user.client.select',
+    renderer='json',
+    request_method=('POST','OPTIONS')
+)
+def client_select(request):
+    log.info('view: user.client.select')
+
+    params = request.json_body
+    client_id = params['client_id'] if 'client_id' in params else ''
+
+    if (client_id == ''):
+        return {
+            'status': False,
+            'messages': [
+                {
+                    'type': 'error',
+                    'text': 'Client Id is required'
+                }
+            ],
+            'data': {}
+        }
+
+    try:
+        session = request.session
+        session['client_id'] = client_id
+
+        return {
+            'status': True,
+            'messages': [],
             'data': {}
         }
     except Exception as e:

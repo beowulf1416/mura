@@ -20,6 +20,11 @@ def includeme(config):
         '/api/v1/user/clients'
     )
 
+    config.add_route(
+        'user.client.select',
+        '/api/v1/user/clients/select'
+    )
+
     # password management
     config.add_route(
         'user.password.reset.request',

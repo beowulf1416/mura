@@ -14,7 +14,7 @@ class PostgreSQL:
         # users
         'user.register': { 'sql': 'select * from security.user_register(%s,%s)', 'commit': True },
         'email.verify': { 'sql': 'select * from security.verify_email(%s)', 'commit': True },
-        'user.clients': { 'sql': 'select * from security.user_clients_list()', 'commit': False },
+        'user.clients': { 'sql': 'select * from security.user_client_list()', 'commit': False },
         'user.password.reset.request': { 'sql': 'select * from security.user_password_request(%s)', 'commit': True },
         'user.password.reset': { 'sql': 'select * from security.user_password_reset(%s,%s)', 'commit': True },
         'user.password.token.validate': { 'sql': 'select * from security.user_password_token_validate(%s)', 'commit': False },
@@ -31,7 +31,12 @@ class PostgreSQL:
         'client.get': { 'sql': 'select * from clients.client.get(%s)', 'commit': False },
         'clients.add': { 'sql': 'select * from clients.client_add(%s,%s)', 'commit': True },
         # security
-        'security.users': { 'sql': 'select * from security.user_list(%s,%s)', 'commit': False }
+        ## users
+        'security.users': { 'sql': 'select * from security.user_list(%s,%s)', 'commit': False },
+        ## permissions
+        'security.permissions': { 'sql': 'select * from security.permissions_list(%s,%s)', 'commit': False },
+        ## roles
+        'security.roles': { 'sql': 'select * from security.role_list(%s,%s)', 'commit': False }
     }
 
     def __init__(self, connection):
@@ -59,7 +64,12 @@ class PostgreSQL:
             'client.get': self._run_sql,
             'clients.add': self._run_sql,
             # security
-            'security.users': self._run_sql
+            ## users
+            'security.users': self._run_sql,
+            ## permissions
+            'security.permissions': self._run_sql,
+            ## roles
+            'security.roles': self._run_sql
         }
 
 
