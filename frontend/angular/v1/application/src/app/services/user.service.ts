@@ -7,6 +7,8 @@ import { Store, select } from '@ngrx/store';
 import { State } from '../classes/state';
 import * as user from '../classes/reducers/user';
 import * as userActions from '../classes/actions/user';
+import * as clientActions from '../classes/actions/client';
+
 import { User } from '../classes/user';
 import { ApiResult } from '../classes/api-result';
 import { Urls } from '../classes/urls';
@@ -48,13 +50,13 @@ export class UserService {
         if (r.status) {
           const u = new User(
             email,
-            r.data.permissions
+            []
           );
 
           // const session = get_session_storage();
           const session = this.storage.native_session_storage;
           session.setItem('email', u.email);
-          session.setItem('permissions', JSON.stringify(u.permissions));
+          // session.setItem('permissions', JSON.stringify(u.permissions));
 
           this.store.dispatch(new userActions.SignIn(u));
         } else {
@@ -93,5 +95,35 @@ export class UserService {
 
   clients(): Observable<ApiResult> {
     return this.http.post<ApiResult>(Urls.url_user_clients, JSON.stringify({}));
+  }
+
+  client_select(client: string): Observable<ApiResult> {
+    return Observable.create((observer: NextObserver<ApiResult>) => {
+      this.store.dispatch(new clientActions.Select(client));
+      this.http.post<ApiResult>(Urls.url_user_client_select, JSON.stringify({
+        client_id: client
+      })).subscribe((r: ApiResult) => {
+        if (r.status) {
+          console.log(r);
+        } else {
+          console.error(r);
+        }
+      });
+
+      this.http.post<ApiResult>(Urls.url_user_permissions, JSON.stringify({})).subscribe((r: ApiResult) => {
+        if (r.status) {
+          const permissions = r.data.permissions;
+          this.store.dispatch(new userActions.PermissionUpdate(permissions));
+        } else {
+          console.error(r);
+        }
+      });
+      // observer.next(r);
+      observer.complete();
+    });
+  }
+
+  permissions(): Observable<ApiResult> {
+    return this.http.post<ApiResult>(Urls.url_user_permissions, JSON.stringify({}));
   }
 }

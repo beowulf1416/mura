@@ -17,6 +17,11 @@ export function reducer(state: State = initialState, action: UserActionsUnion): 
         case UserActionTypes.SIGN_OUT: {
             return { ...state, user: initialState.user };
         }
+        case UserActionTypes.PERMISSION_UPDATE: {
+            const user = state.user;
+            user.permissions = action.payload;
+            return { ...state, user: user};
+        }
         default: {
             return state;
         }

@@ -8,6 +8,10 @@ export class User {
         return this.email !== '';
     }
 
+    // public set_permissions(permissions: Array<string>) {
+    //     this.permissions = permissions;
+    // }
+
     public has_permission(permission: string): boolean {
         return this.permissions.indexOf(permission) !== -1;
     }

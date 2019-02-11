@@ -24,6 +24,7 @@ import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { ClientSelectComponent } from './components/client-select/client-select.component';
+import { ClientJoinComponent } from './components/client-join/client-join.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ClientSelectComponent } from './components/client-select/client-select.
     ForbiddenComponent,
     MessagesComponent,
     NotificationsComponent,
-    ClientSelectComponent
+    ClientSelectComponent,
+    ClientJoinComponent
   ],
   imports: [
     BrowserModule,
