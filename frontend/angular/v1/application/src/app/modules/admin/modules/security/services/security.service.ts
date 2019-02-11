@@ -33,4 +33,28 @@ export class SecurityService {
       user_id: user_id
     }));
   }
+
+  roles(
+    pager: { items: number, offset: number },
+    filter: Array<{ key: string, value: string }>,
+    sort: Array<{ key: string, direction: TableSortDirection }>
+  ): Observable<ApiResult> {
+    return this.http.post<ApiResult>(ModuleUrls.url_security_roles, JSON.stringify({
+      pager: pager,
+      filter: filter,
+      sort: sort
+    }));
+  }
+
+  permissions(
+    pager: { items: number, offset: number },
+    filter: Array<{ key: string, value: string }>,
+    sort: Array<{ key: string, direction: TableSortDirection }>
+  ): Observable<ApiResult> {
+    return this.http.post<ApiResult>(ModuleUrls.url_security_permissions, JSON.stringify({
+      pager: pager,
+      filter: filter,
+      sort: sort
+    }));
+  }
 }

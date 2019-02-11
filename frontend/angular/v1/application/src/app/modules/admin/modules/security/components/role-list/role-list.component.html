@@ -1,3 +1,50 @@
-<p>
-  role-list works!
-</p>
+<div id="wrapper-role-list">
+  <nav class="menu">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar">
+      <div class="btn-group" role="group" aria-label="Common">
+        <button type="button" class="btn btn-secondary" (click)="refresh()">
+            <i class="material-icons">refresh</i>
+        </button>
+      </div><!-- .btn-group -->
+      <div class="btn-group" role="group" aria-label="Common">
+        <button type="button" class="btn btn-secondary" (click)="role_new()">
+          <i class="material-icons">add</i>
+        </button>
+      </div><!-- .btn-group -->
+    </div><!-- .btn-toolbar -->
+  </nav>
+  <div class="wrapper-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Active</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td>
+            <nav aria-label="pager">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="nav page-link" href="#" (click)="pager_previous()">Previous</a>
+                </li><!-- .page-item -->
+                <li class="page-item">
+                  <a class="nav page-link" href="#" (click)="pager_next()">Next</a>
+                </li><!-- .page-item -->
+              </ul>
+            </nav>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let r of roles">
+          <td><a class="nav nav-link" routerLink="/admin/security/roles/{{ r.id }}">{{ r.id }}</a></td>
+          <td><a class="nav nav-email" routerLink="/admin/security/roles/{{ r.id }}">{{ r.name }}</a></td>
+          <td><i class="material-icons">{{ r.active ? "check_box" : "check_box_outline_blank" }}</i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- .wrapper-table -->
+</div><!-- #wrapper-role-list -->

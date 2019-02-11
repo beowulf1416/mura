@@ -1,3 +1,49 @@
-<p>
-  permission-list works!
-</p>
+<div id="wrapper-permission-list">
+  <nav class="menu">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar">
+      <div class="btn-group" role="group" aria-label="Common">
+        <button type="button" class="btn btn-secondary" (click)="refresh()">
+            <i class="material-icons">refresh</i>
+        </button>
+      </div><!-- .btn-group -->
+      <div class="btn-group" role="group" aria-label="Common">
+        <button type="button" class="btn btn-secondary" (click)="permission_new()">
+          <i class="material-icons">add</i>
+        </button>
+      </div><!-- .btn-group -->
+    </div><!-- .btn-toolbar -->
+  </nav>
+  <div class="wrapper-table">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Email</th>
+          <th>Active</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td>
+            <nav aria-label="pager">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="nav page-link" href="#" (click)="pager_previous()">Previous</a>
+                </li><!-- .page-item -->
+                <li class="page-item">
+                  <a class="nav page-link" href="#" (click)="pager_next()">Next</a>
+                </li><!-- .page-item -->
+              </ul>
+            </nav>
+          </td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let p of permissions">
+          <td>{{ p.id }}</td>
+          <td>{{ p.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- .wrapper-table -->
+</div><!-- #wrapper-permission-list -->
