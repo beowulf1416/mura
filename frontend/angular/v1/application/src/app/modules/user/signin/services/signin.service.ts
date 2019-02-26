@@ -17,6 +17,10 @@ export class SigninService {
     private user_service: UserService
   ) { }
 
+  get_clients_list(): Observable<ApiResult> {
+    return this.http.post<ApiResult>(ModuleUrls.url_user_signin_clients, JSON.stringify({}));
+  }
+
   signin(email: string, password: string): Observable<ApiResult> {
     return this.user_service.signin(email, password);
   }

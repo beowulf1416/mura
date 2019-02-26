@@ -9,12 +9,16 @@ import { MaterialModule } from '../../../shared/material/material.module';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { ClientComponent } from './components/client/client.component';
 import { MainComponent } from './components/main/main.component';
+import { OrganizationComponent } from './components/organization/organization.component';
+import { OrganizationsComponent } from './components/organizations/organizations.component';
 
 @NgModule({
   declarations: [
     ClientListComponent,
     ClientComponent,
-    MainComponent
+    MainComponent,
+    OrganizationComponent,
+    OrganizationsComponent
   ],
   imports: [
     CommonModule,

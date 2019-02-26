@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-client-join',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientJoinComponent implements OnInit {
 
-  constructor() { }
+  clients = [];
+
+  constructor(
+    private title: Title
+  ) { }
 
   ngOnInit() {
+    this.title.setTitle('Client Join');
   }
 
 }

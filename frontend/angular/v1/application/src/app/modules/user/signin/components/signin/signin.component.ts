@@ -14,6 +14,8 @@ import { ApiResult } from 'src/app/classes/api-result';
 })
 export class SigninComponent implements OnInit {
 
+  // clients = [];
+
   form = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -22,7 +24,10 @@ export class SigninComponent implements OnInit {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(6)
-    ])
+    ]),
+    // client: new FormControl('', [
+    //   Validators.required
+    // ])
   });
 
   constructor(
@@ -33,7 +38,20 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Sign In');
+    // this.init_clients();
   }
+
+  // init_clients() {
+  //   this.service.get_clients_list().subscribe((r: ApiResult) => {
+  //     if (r.status) {
+  //       this.clients = r.data.clients;
+  //     } else {
+  //       r.messages.forEach(e => {
+  //         console.error(e);
+  //       });
+  //     }
+  //   });
+  // }
 
   submit() {
     console.log('SignInComponent::submit()');
@@ -45,6 +63,7 @@ export class SigninComponent implements OnInit {
         console.log('SignInComponent::submit()', r);
         if (r.data.authenticated) {
           this.router.navigate(['dashboard']);
+          // this.router.navigate(['select', 'client']);
         } else {
           console.log('SignInComponent::submit()', 'authentication failed');
         }

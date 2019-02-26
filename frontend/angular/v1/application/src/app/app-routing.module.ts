@@ -16,10 +16,10 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [ AuthGuard ],
-    data: {
-      permission: 'user.dashboard'
-    },
+    // canActivate: [ AuthGuard ],
+    // data: {
+    //   permission: 'user.dashboard'
+    // },
     component: DashboardComponent
   },
   {

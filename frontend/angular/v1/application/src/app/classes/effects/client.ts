@@ -15,7 +15,10 @@ export class ClientEffects {
 
     @Effect()
     init: Observable<Action> = defer(() => {
-        const client_id = this.storage.native_session_storage.getItem('client_id');
-        return new BehaviorSubject<Action>(new clientActions.Select(client_id));
+        let client = JSON.parse(this.storage.native_session_storage.getItem('client'));
+        if (client == null) {
+            client = { id: '', name: '' };
+        }
+        return new BehaviorSubject<Action>(new clientActions.Select(client));
     });
 }

@@ -6,6 +6,8 @@ import { AuthGuard } from '../../../../classes/auth-guard';
 import { MainComponent } from './components/main/main.component';
 import { ClientListComponent } from './components/client-list/client-list.component';
 import { ClientComponent } from './components/client/client.component';
+import { OrganizationsComponent } from './components/organizations/organizations.component';
+import { OrganizationComponent } from './components/organization/organization.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,18 @@ const routes: Routes = [
       {
         path: ':id',
         component: ClientComponent
+      },
+      {
+        path: 'organizations',
+        component: OrganizationsComponent
+      },
+      {
+        path: 'organizations/new',
+        component: OrganizationComponent
+      },
+      {
+        path: 'organizations/:id',
+        component: OrganizationComponent
       }
     ]
   }

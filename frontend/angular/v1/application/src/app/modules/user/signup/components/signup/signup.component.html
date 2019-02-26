@@ -14,34 +14,34 @@
           </mat-error>
         </mat-form-field>
         <fieldset formGroupName="passwords">
-            <legend>Passwords</legend>
-            <mat-form-field>
-              <input type="password" id="password1" name="password1" placeholder="Password" required minlength="6" matInput formControlName="pw1" />
-              <mat-error *ngIf="form.get('passwords').get('pw1').hasError('required')">
-                Password is <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="form.get('passwords').get('pw1').hasError('minlength')">
-                Passwords should be 6 characters or more
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-              <input type="password" id="password2" name="password2" placeholder="Confirm Password" required matInput formControlName="pw2" />
-              <mat-error *ngIf="form.get('passwords').get('pw2').hasError('required')">
-                Password is <strong>required</strong>
-              </mat-error>
-              <mat-error *ngIf="form.get('passwords').hasError('password')">
-                Passwords do not match
-              </mat-error>
-            </mat-form-field>
-          </fieldset>
-          <div class="actions">
-            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Sign Up</button>
-            <nav>
-              <ul class="nav flex-column">
-                <li><a title="Sign In" class="nav-link card-link" routerLink="/user/signin">Sign In</a></li>
-              </ul>
-            </nav>
-          </div><!-- .actions -->
+          <legend>Passwords</legend>
+          <mat-form-field>
+            <input type="password" id="password1" name="password1" placeholder="Password" required minlength="6" matInput formControlName="pw1" />
+            <mat-error *ngIf="form.get('passwords').get('pw1').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('passwords').get('pw1').hasError('minlength')">
+              Passwords should be 6 characters or more
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="password" id="password2" name="password2" placeholder="Confirm Password" required matInput formControlName="pw2" />
+            <mat-error *ngIf="form.get('passwords').get('pw2').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="form.get('passwords').hasError('password')">
+              Passwords do not match
+            </mat-error>
+          </mat-form-field>
+        </fieldset>
+        <div class="actions">
+          <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Sign Up</button>
+          <nav>
+            <ul class="nav flex-column">
+              <li><a title="Sign In" class="nav-link card-link" routerLink="/user/signin">Sign In</a></li>
+            </ul>
+          </nav>
+        </div><!-- .actions -->
       </div><!-- .card-body -->
     </form>
   </main>

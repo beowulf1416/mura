@@ -1,17 +1,31 @@
 import { ClientActionTypes, ClientActionsUnion } from '../actions/client';
 
 export interface State {
-    client: string;
+    client: {
+        id: string,
+        name: string
+    };
 }
 
 export const initialState: State = {
-    client: '0'
+    client: {
+        id: '',
+        name: ''
+    }
 };
 
 export function reducer(state: State = initialState, action: ClientActionsUnion): State {
     switch (action.type) {
         case ClientActionTypes.SELECT: {
-            return { ...state, client: action.payload };
+            if (action.payload != null) {
+                const client = action.payload;
+                return { ...state, client: client };
+            } else {
+                return state;
+            }
+        }
+        default: {
+            return state;
         }
     }
 }

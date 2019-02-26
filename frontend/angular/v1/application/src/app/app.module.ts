@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { reducers } from './classes/state';
 import { UserEffects } from './classes/effects/user';
+import { ClientEffects } from './classes/effects/client';
 
 import { Window } from './classes/window';
 import { Storage } from './classes/storage';
@@ -46,7 +47,8 @@ import { ClientJoinComponent } from './components/client-join/client-join.compon
     MaterialModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
-      UserEffects
+      UserEffects,
+      ClientEffects
     ]),
     AppRoutingModule
   ],

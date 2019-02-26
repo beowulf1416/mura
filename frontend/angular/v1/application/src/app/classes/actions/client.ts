@@ -8,7 +8,10 @@ export class Select implements Action {
     readonly type = ClientActionTypes.SELECT;
 
     constructor(
-        public payload: string
+        public payload: {
+            id: string,
+            name: string
+        }
     ) {}
 }
 
