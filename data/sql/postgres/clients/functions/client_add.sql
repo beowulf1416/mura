@@ -1,5 +1,6 @@
 create or replace function client_add (
     p_name clients.clients.name%type,
+    p_public_name clients.clients.public_name%type,
     p_description clients.clients.description%type
 )
 returns clients.clients.id%type
@@ -9,9 +10,11 @@ declare
 begin
     insert into clients.clients (
         name,
+        public_name,
         description
     ) values (
         p_name,
+        p_public_name,
         p_description
     )
     returning currval(pg_get_serial_sequence('clients.clients', 'id')) into tmp;

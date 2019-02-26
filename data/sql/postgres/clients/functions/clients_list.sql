@@ -17,6 +17,7 @@ begin
             c.active,
             c.created_ts,
             c.name,
+            c.public_name,
             c.description
          from clients.clients c
          limit $1
