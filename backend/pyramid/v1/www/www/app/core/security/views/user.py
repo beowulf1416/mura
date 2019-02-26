@@ -387,6 +387,7 @@ def signin(request):
     params = request.json_body
     email = params['email'] if 'email' in params else ''
     password = params['password'] if 'email' in params else ''
+    # client = params['client'] if 'client' in params else ''
 
     if (email == ''):
         return {
@@ -411,6 +412,18 @@ def signin(request):
             ],
             'data': {}
         }
+
+    # if (client == ''):
+    #     return {
+    #         'status': False,
+    #         'messages': [
+    #             {
+    #                 'type': 'error',
+    #                 'text': 'Client is required'
+    #             }
+    #         ],
+    #         'data': {}
+    #     }
     
 
     try:
@@ -430,6 +443,7 @@ def signin(request):
             (user_id, ) = result['result'][0]
             remember(request, user_id)
 
+            
             # result = provider.query(
             #     'user.permissions',
             #     (user_id, )
