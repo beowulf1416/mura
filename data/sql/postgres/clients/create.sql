@@ -12,9 +12,12 @@ set schema 'clients';
 
 
 /** functions **/
-
-\ir functions/client_add.sql
-\ir functions/clients_list.sql
-\ir functions/clients_list_public.sql
-\ir functions/client_get.sql
-\ir functions/client_get_id.sql
+-- clients
+\ir functions/clients/client_add.sql
+\ir functions/clients/clients_list.sql
+\ir functions/clients/clients_list_public.sql
+\ir functions/clients/client_get.sql
+\ir functions/clients/client_get_id.sql
+-- organizations
+\ir functions/organizations/organization_add.sql
+\ir functions/organizations/organization_set_parent.sql

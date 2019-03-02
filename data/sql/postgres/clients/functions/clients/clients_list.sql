@@ -6,7 +6,8 @@ returns table (
     client_id clients.clients.id%type,
     active clients.clients.active%type,
     created_ts clients.clients.created_ts%type,
-    name clients.clients.name%type, 
+    name clients.clients.name%type,
+    public_name clients.clients.public_name%type,
     description clients.clients.description%type
 )
 as $$

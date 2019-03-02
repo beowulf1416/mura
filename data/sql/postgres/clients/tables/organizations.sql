@@ -5,7 +5,8 @@ create table if not exists organizations (
     client_id bigint not null,
     name varchar(100) not null,
     description text,
-    constraint pk_organizations  primary key (client_id, name),
+    constraint pk_organizations  primary key (id),
+    constraint u_organizations_1 unique (client_id, name),
     constraint fk_organizations_1 foreign key (client_id) references clients.clients(id)
         on delete restrict on update restrict
 );
