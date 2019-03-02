@@ -23,10 +23,11 @@ class AuthorizationPolicy:
             for p in principals:
                 if (p != Everyone):
                     try:
-                        result = self._provider.query(
-                            'user.has_permission',
-                            (p, permission)
-                        )
+                        result = self._provider.user_has_permission(p, permission)
+                        # result = self._provider.query(
+                        #     'user.has_permission',
+                        #     (p, permission)
+                        # )
                         (allowed, ) = result['result'][0]
                         if (allowed):
                             return Allowed('Allowed')

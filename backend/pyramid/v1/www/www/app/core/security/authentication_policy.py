@@ -29,6 +29,9 @@ class AuthenticationPolicy:
     def remember(self, request, user_id, **kw):
         session = request.session
         session['user_id'] = user_id
+        # if kw is not None:
+        #     for k, v in kw.iteritems():
+        #         session[k] = v
         return []
 
     def forget(self, request):
