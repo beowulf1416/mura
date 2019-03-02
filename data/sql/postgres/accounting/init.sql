@@ -1,5 +1,7 @@
 set schema 'accounting';
+\echo '** ACCOUNTING **'
 
+\echo 'accounting.account_types'
 insert into accounting.account_types (id, name) values 
 (1,'asset'),
 (2,'liability'),
@@ -18,3 +20,5 @@ lanuage plpgsql;
 
 init();
 drop function init;
+
+set schema 'public';

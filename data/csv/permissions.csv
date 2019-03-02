@@ -1,0 +1,12 @@
+name,description
+"user.authenticated","user is authenticated"
+"admin.dashboard","allow user to view admin dashboard"
+"admin.clients","allow user to view admin clients dashboard"
+"security.users.list","allow user to view list of users"
+"security.user.info","allow user to view user details"
+"clients.list","allow user to get a list of clients"
+"clients.add","allow user to add client record"
+"inventory.dashboard","allow user to view inventory dashboard"
+"organizations.list","allow user to view list of organizations"
+"organizations.add","allow user to add organizations"
+"organizations.tree","allow user to generate organizations tree"

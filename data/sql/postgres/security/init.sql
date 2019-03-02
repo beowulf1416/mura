@@ -1,3 +1,9 @@
+set schema 'security';
+\echo '** SECURITY **'
+
+\echo 'permissions';
+\copy permissions (name,description) from '../../csv/permissions.csv' delimiter ',' csv header;
+
 create or replace function init()
 returns void
 as $$
@@ -12,74 +18,18 @@ begin
         into
         t_client_id;
 
-    -- role
+    -- create admin role
     select
         security.role_add(t_client_id, 'admin', 'default administrative role')
         into
         t_role_id;
 
-    -- users
-    select
-        security.permission_add('user.authenticated', 'user is authenticated')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
+    -- add all permissions to admin role
+    insert into security.role_permissions
+    select t_role_id, p.id
+    from security.permissions p;
 
-    select
-        security.permission_add('user.dashboard', 'allow user to view dashboard')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-    -- admin
-    select
-        security.permission_add('admin.dashboard', 'allow user to view admin dashboard')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-    select
-        security.permission_add('admin.clients', 'allow user to view admin clients dashboard')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-
-    -- security
-    select
-        security.permission_add('security.users.list', 'allow user to view list of users')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-    select
-        security.permission_add('security.user.info', 'allow user to view user details')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-
-    -- clients
-    select
-        security.permission_add('clients.list', 'allow user to get a list of clients')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-    select
-        security.permission_add('clients.add', 'allow user to add client record')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-    -- inventory
-    select
-        security.permission_add('inventory.dashboard', 'allow user to view inventory dashboard')
-        into
-        t_permission_id;
-    perform security.add_permission_to_role(t_role_id, t_permission_id);
-
-
+    -- create admin user
     insert into security.users (
         active,
         verified_ts,
@@ -102,3 +52,5 @@ language plpgsql;
 
 select init();
 drop function init;
+
+set schema 'public';

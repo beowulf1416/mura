@@ -46,3 +46,5 @@ set schema 'security';
 \ir functions/roles/add_role_to_user.sql
 \ir functions/roles/role_list.sql
 
+
+set schema 'public';
