@@ -7,5 +7,7 @@ set schema 'common';
 \ir tables/dimensions.sql
 \ir tables/uom.sql
 
+\ir tables/genders.sql
+
 
 /** functions **/
