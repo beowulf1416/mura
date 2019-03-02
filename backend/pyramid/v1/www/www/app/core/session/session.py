@@ -7,6 +7,8 @@ import jwt
 from zope.interface import implementer
 from pyramid.interfaces import ISession
 
+from www.app.core.session.providers import get_provider
+
 
 def wrap_changed(wrapped):
     def changed(session, *arg, **kw):
@@ -85,13 +87,15 @@ def SessionFactory(
             log.info('Session::clear()')
 
             try:
-                provider_name = self._request.registry.settings['data.provider.common']
-                provider = self._request.data.get_provider(provider_name)
+                # provider_name = self._request.registry.settings['data.provider.common']
+                # provider = self._request.data.get_provider(provider_name)
 
-                provider.query(
-                    'session.clear', 
-                    (self._session_id, )
-                )
+                # provider.query(
+                #     'session.clear', 
+                #     (self._session_id, )
+                # )
+                provider = get_provider(self._request)
+                provider.session_clear(self._session_id)
 
                 self._session_id = secrets.token_urlsafe(20)
                 log.debug('new session id: %s', self._session_id)
@@ -178,17 +182,21 @@ def SessionFactory(
                 provider_name = self._request.registry.settings['data.provider.common']
                 provider = self._request.data.get_provider(provider_name)
 
+                provider = get_provider(self._request)
+
                 if (self._new):
-                    provider.query(
-                        'session.create',
-                        (self._session_id, )
-                    )
+                    # provider.query(
+                    #     'session.create',
+                    #     (self._session_id, )
+                    # )
+                    provider.session_create(self._session_id)
 
                 for key, value in self.items():
-                    provider.query(
-                        'session.set',
-                        (self._session_id, key, str(value))
-                    )
+                    # provider.query(
+                    #     'session.set',
+                    #     (self._session_id, key, str(value))
+                    # )
+                    provider.set_value(self._session_id, key, str(value))
             except Exception as e:
                 log.error(e)
 
