@@ -53,6 +53,10 @@ def SessionFactory(
                         request.registry.settings['jwt.algorithm']
                     )
                     self._session_id = decoded['session_id']
+
+                    provider = get_provider(self._request)
+                    self._session_rehydrate(provider)
+
                     self._new = False
                 except KeyError:
                     log.error('Session::__init__() session_id not found in cookie')
@@ -64,6 +68,15 @@ def SessionFactory(
 
             state = {}
             dict.__init__(self, state)
+
+    
+        def _session_rehydrate(self, provider):
+            log.debug('Session::_session_rehydrate()')
+            session_vars = provider.session_rehydrate(self._session_id)
+            for var in session_vars:
+                (name, value) = var
+                dict.__setitem__(self, name, value)
+
 
         # ISession
         def changed(self):
@@ -87,13 +100,6 @@ def SessionFactory(
             log.info('Session::clear()')
 
             try:
-                # provider_name = self._request.registry.settings['data.provider.common']
-                # provider = self._request.data.get_provider(provider_name)
-
-                # provider.query(
-                #     'session.clear', 
-                #     (self._session_id, )
-                # )
                 provider = get_provider(self._request)
                 provider.session_clear(self._session_id)
 
@@ -139,6 +145,7 @@ def SessionFactory(
         # dict
         def __get_item__(self, key):
             log.info('Session::__get_item__()')
+            return dict.__getitem__(self, key)
 
         def _set_cookie(self, request, response):
             log.info('Session::_set_cookie()')
@@ -179,23 +186,12 @@ def SessionFactory(
         def _save_session_data(self):
             log.info('Session::_save_session_data()')
             try:
-                provider_name = self._request.registry.settings['data.provider.common']
-                provider = self._request.data.get_provider(provider_name)
-
                 provider = get_provider(self._request)
 
                 if (self._new):
-                    # provider.query(
-                    #     'session.create',
-                    #     (self._session_id, )
-                    # )
                     provider.session_create(self._session_id)
 
                 for key, value in self.items():
-                    # provider.query(
-                    #     'session.set',
-                    #     (self._session_id, key, str(value))
-                    # )
                     provider.set_value(self._session_id, key, str(value))
             except Exception as e:
                 log.error(e)

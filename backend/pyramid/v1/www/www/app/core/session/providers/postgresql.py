@@ -23,6 +23,19 @@ class SessionPostgreSQL(PostgreSQL):
             log.error(e)
 
     
+    def session_rehydrate(self, session_id):
+        log.debug('SessionPostgreSQL::session_rehydrate()')
+        sql = 'select * from www.session_get_vars(%s)'
+        connection = self.get_connection()
+        cn = connection['connection']
+        try:
+            c = cn.cursor()
+            c.execute(sql, (session_id, ))
+            return c.fetchall()
+        except Exception as e:
+            log.error(e)
+
+    
     def set_value(self, session_id, key, value):
         log.debug('SessionPostgreSQL::set_value()')
         sql = 'select * from www.session_set(%s,%s,%s)'

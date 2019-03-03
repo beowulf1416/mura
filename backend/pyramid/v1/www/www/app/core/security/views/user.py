@@ -6,6 +6,8 @@ import secrets
 from pyramid.view import view_config
 from pyramid.security import remember, forget
 
+from www.app.core.security.providers import get_provider
+from www.app.core.security.classes.user import User
 from www.app.core.mail.user import UserMail
 
 
@@ -160,14 +162,25 @@ def clients(request):
     log.info('view: user.clients')
 
     try:
-        provider_name = request.registry.settings['data.provider.security']
-        provider = request.data.get_provider(provider_name)
+        # provider_name = request.registry.settings['data.provider.security']
+        # provider = request.data.get_provider(provider_name)
     
-        result = provider.query(
-            'user.clients', 
-            ()
-        )
-        clients = [{ 'id': r[0], 'name': r[1] }  for r in result['result'] ]
+        # result = provider.query(
+        #     'user.clients', 
+        #     ()
+        # )
+        # clients = [{ 'id': r[0], 'name': r[1] }  for r in result['result'] ]
+        params = request.json_body
+        user_id = params['user_id'] if 'user_id' in params else ''
+
+        session = request.session
+        user_id = session['user_id']
+
+        provider = get_provider(request)
+        user = User(provider)
+        result = user.get_clients(user_id)
+        clients = [{ 'id': r[0], 'name': r[1] }  for r in result ]
+
         return {
             'status': True,
             'data': {
@@ -387,69 +400,14 @@ def signin(request):
     params = request.json_body
     email = params['email'] if 'email' in params else ''
     password = params['password'] if 'email' in params else ''
-    # client = params['client'] if 'client' in params else ''
-
-    if (email == ''):
-        return {
-            'status': False,
-            'messages': [
-                {
-                    'type': 'error',
-                    'text': 'Email address is required'
-                }
-            ],
-            'data': {}
-        }
-
-    if (password == ''):
-        return {
-            'status': False,
-            'messages': [
-                {
-                    'type': 'error',
-                    'text': 'Password is required'
-                }
-            ],
-            'data': {}
-        }
-
-    # if (client == ''):
-    #     return {
-    #         'status': False,
-    #         'messages': [
-    #             {
-    #                 'type': 'error',
-    #                 'text': 'Client is required'
-    #             }
-    #         ],
-    #         'data': {}
-    #     }
-    
 
     try:
-        provider_name = request.registry.settings['data.provider.security']
-        provider = request.data.get_provider(provider_name)
-    
-        result = provider.query(
-            'user.authenticate', 
-            (email, password)
-        )
-        (authentic, ) = result['result'][0]
+        provider = get_provider(request)
+        user = User(provider)
+        authentic = user.authenticate(email, password)
         if (authentic):
-            result = provider.query(
-                'user.get_id',
-                (email, )
-            )
-            (user_id, ) = result['result'][0]
+            user_id = user.get_by_email(email)
             remember(request, user_id)
-
-            
-            # result = provider.query(
-            #     'user.permissions',
-            #     (user_id, )
-            # )
-            # permissions = [ p[0] for p in result['result']]
-            # log.debug(permissions)
 
             return {
                 'status': True,
@@ -482,7 +440,7 @@ def signin(request):
             'messages': [
                 {
                     'type': 'error',
-                    'text': 'An error occured.'
+                    'text': str(e)
                 }
             ],
             'data': {}
