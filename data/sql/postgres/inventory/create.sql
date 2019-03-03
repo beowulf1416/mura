@@ -5,7 +5,7 @@ set schema 'inventory';
 \ir tables/warehouses.sql
 \ir tables/locations.sql
 
-\ir tables/vendors.sql
+\ir tables/vendors.sqlw
 
 \ir tables/items.sql
 \ir tables/item_components.sql
