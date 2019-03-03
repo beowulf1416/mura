@@ -10,3 +10,4 @@ set schema 'www';
 \ir functions/session_create.sql
 \ir functions/session_set.sql
 \ir functions/session_get.sql
+\ir functions/session_get_vars.sql
