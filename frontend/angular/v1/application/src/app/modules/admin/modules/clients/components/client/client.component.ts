@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 import { ClientsService } from '../../services/clients.service';
 import { ApiResult } from 'src/app/classes/api-result';
@@ -34,22 +34,26 @@ export class ClientComponent implements OnInit {
   constructor(
     private title: Title,
     private service: ClientsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.title.setTitle('Client');
     this.route.paramMap.subscribe((p: ParamMap) => {
       const id = p.get('id');
-      this.service.view(Number.parseInt(id, 1)).subscribe((r: ApiResult) => {
-        if (r.status) {
-          this.client = r.data.client;
-          this.form.get('name').setValue(this.client.name);
-          this.form.get('description').setValue(this.client.description);
-        } else {
-          console.error('ClientComponent::ngOnInit()', r.messages);
-        }
-      });
+      console.log('ClientComponent;;ngOnInit()', id);
+      if (id != null) {
+        this.service.view(Number.parseInt(id, 10)).subscribe((r: ApiResult) => {
+          if (r.status) {
+            this.client = r.data.client;
+            this.form.get('name').setValue(this.client.name);
+            this.form.get('description').setValue(this.client.description);
+          } else {
+            console.error('ClientComponent::ngOnInit()', r.messages);
+          }
+        });
+      }
       console.log('ClientComponent::ngOnInit()', id);
     });
   }
@@ -64,6 +68,7 @@ export class ClientComponent implements OnInit {
         r.messages.forEach((m: Message) => {
           this.messages.push(m.text);
         });
+        this.router.navigate([ 'admin', 'clients' ]);
       } else {
         console.error(r);
       }

@@ -10,7 +10,7 @@ export interface State {
 export const initialState: State = {
     client: {
         id: '',
-        name: ''
+        name: 'None'
     }
 };
 

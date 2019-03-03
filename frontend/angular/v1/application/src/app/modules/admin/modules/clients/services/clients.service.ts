@@ -28,6 +28,7 @@ export class ClientsService {
   }
 
   view(client_id: number): Observable<ApiResult> {
+    console.log('ClientsService::view()', client_id);
     return this.http.post<ApiResult>(ModuleUrls.url_client_view, JSON.stringify({
       client_id: client_id
     }));
@@ -37,6 +38,15 @@ export class ClientsService {
     return this.http.post<ApiResult>(ModuleUrls.url_client_add, JSON.stringify({
       name: name,
       description: description
+    }));
+  }
+
+  organization_add(client_id: string, name: string, description: string, parent_id: string): Observable<ApiResult> {
+    return this.http.post<ApiResult>(ModuleUrls.url_organization_add, JSON.stringify({
+      client_id: client_id,
+      name: name,
+      description: description,
+      parent_id: parent_id
     }));
   }
 }

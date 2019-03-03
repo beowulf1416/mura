@@ -11,6 +11,7 @@ import { ClientComponent } from './components/client/client.component';
 import { MainComponent } from './components/main/main.component';
 import { OrganizationComponent } from './components/organization/organization.component';
 import { OrganizationsComponent } from './components/organizations/organizations.component';
+import { OrgNodeComponent } from './components/org-node/org-node.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { OrganizationsComponent } from './components/organizations/organizations
     ClientComponent,
     MainComponent,
     OrganizationComponent,
-    OrganizationsComponent
+    OrganizationsComponent,
+    OrgNodeComponent
   ],
   imports: [
     CommonModule,

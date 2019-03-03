@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-organizations',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrganizationsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private title: Title,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.title.setTitle('Organizations');
   }
 
   refresh() {
@@ -18,5 +24,6 @@ export class OrganizationsComponent implements OnInit {
 
   organization_add() {
     console.log('OrganizationsComponent::organization_add()');
+    this.router.navigate([ 'admin', 'clients', 'organizations', 'new' ]);
   }
 }

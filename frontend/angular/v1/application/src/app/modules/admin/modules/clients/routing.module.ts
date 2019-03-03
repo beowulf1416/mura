@@ -35,10 +35,6 @@ const routes: Routes = [
         component: ClientComponent
       },
       {
-        path: ':id',
-        component: ClientComponent
-      },
-      {
         path: 'organizations',
         component: OrganizationsComponent
       },
@@ -49,7 +45,11 @@ const routes: Routes = [
       {
         path: 'organizations/:id',
         component: OrganizationComponent
-      }
+      },
+      {
+        path: ':id',
+        component: ClientComponent
+      },
     ]
   }
 ];

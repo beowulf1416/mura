@@ -6,12 +6,24 @@
           <i class="material-icons">refresh</i>
         </button>
         <button type="button" class="btn btn-secondary" (click)="save()">
-          <i class="fas fa-user-plus"></i>
+          <i class="material-icons">save</i>
         </button>
       </div><!-- .btn-group -->
     </div><!-- .btn-toolbar -->
   </nav>
   <div class="organization">
-
+    <form class="form" [formGroup]="form">
+      <mat-form-field>
+        <input id="name" name="name" placeholder="Name" required minlength="6" matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input id="description" name="description" placeholder="Description" matInput formControlName="description" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select id="parent" name="parent" placeholder="Parent Organization">
+          <mat-option value="0">-- ROOT --</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
   </div><!-- .organization -->
 </div><!-- .wrapper-client-organization -->

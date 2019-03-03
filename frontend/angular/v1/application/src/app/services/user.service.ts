@@ -143,7 +143,7 @@ export class UserService {
       this.http.post<ApiResult>(Urls.url_user_permissions, JSON.stringify({})).subscribe((r: ApiResult) => {
         if (r.status) {
           const permissions = r.data.permissions;
-          this.storage.native_session_storage.setItem('permissions', permissions);
+          this.storage.native_session_storage.setItem('permissions', JSON.stringify(permissions));
           this.store.dispatch(new userActions.PermissionUpdate(permissions));
         } else {
           console.error(r);

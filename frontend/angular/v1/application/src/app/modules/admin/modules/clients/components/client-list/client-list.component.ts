@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ClientsService } from '../../services/clients.service';
 import { TableSortDirection } from '../../../../../../classes/table-operations';
 import { ApiResult } from 'src/app/classes/api-result';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-client-list',

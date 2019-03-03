@@ -40,9 +40,9 @@ export class UserEffects {
         let permissions = this.storage.native_session_storage.getItem('permissions');
         if (permissions == null) {
             permissions = [];
+        } else {
+            permissions = JSON.parse(permissions);
         }
-        // console.log(email);
-        // console.log(permissions);
 
         // retrieve clients
         this.user_service.clients().subscribe((r: ApiResult) => {
