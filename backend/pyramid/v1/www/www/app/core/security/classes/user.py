@@ -50,6 +50,12 @@ class User:
             self._id = user_id
             return self._id
 
+    
+    def get_by_session(self, session_id):
+        log.debug('User::get_by_session')
+
+
+
 
     def get_clients(self, user_id):
         log.debug('User::get_clients()')
@@ -83,3 +89,22 @@ class User:
             self._id = user_id
             self._client_id = client_id
             self.__provider.user_select_client(user_id, client_id)
+
+
+    def get_permissions(self, user_id, client_id):
+        log.debug('User::get_permissions()')
+
+        errors = []
+        if (user_id == ''):
+            errors.append('User Id is required')
+
+        if (client_id == ''):
+            errors.append('Client Id is required')
+
+        if len(errors) > 0:
+            message = '. '.join(errors)
+            raise RuntimeError(message)
+        else:
+            self._id = user_id
+            self._permissions = self.__provider.user_get_permissions(user_id, client_id)
+            return self._permissions

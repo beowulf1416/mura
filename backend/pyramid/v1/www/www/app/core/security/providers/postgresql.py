@@ -61,6 +61,14 @@ class SecurityPostgreSQL(PostgreSQL):
         except Exception as e:
             log.error(e)
 
-    def user_select_client(self, user_id, client_id):
-        log.debug('SecurityPostgreSQL::user_select_client()')
-        sql = ''
+    def user_get_permissions(self, user_id, client_id):
+        log.debug('SecurityPostgreSQL::user_get_permissions()')
+        sql = 'select * from security.user_get_permissions(%s,%s)'
+        try:
+            connection = self.get_connection()
+            cn = connection['connection']
+            c = cn.cursor()
+            c.execute(sql, (user_id, client_id))
+            return c.fetchall()
+        except Exception as e:
+            log.error(e)

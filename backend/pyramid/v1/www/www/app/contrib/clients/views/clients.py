@@ -4,6 +4,9 @@ log = logging.getLogger(__name__)
 from pyramid.view import view_config
 import json
 
+from www.app.contrib.clients.providers import get_provider
+from www.app.contrib.clients.classes.client import Client
+
 
 @view_config(
     route_name='clients.list',
@@ -20,35 +23,21 @@ def clients(request):
     sort = params['sort'] if 'sort' in params else [{'key': 'id', 'direction': 'sort.none'}]
 
     try:
-        provider_name = request.registry.settings['data.provider.clients']
-        provider = request.data.get_provider(provider_name)
-
-        result = provider.query(
-            'clients.list',
-            (pager, filter, sort)
-        )
-        clients = [{ 'id':r[0], 'name':r[3] } for r in result['result'] ]
-        # log.debug(result)
+        provider = get_provider(request)
+        client = Client(provider)
+        result = client.get_all_paged(pager['items'], pager['offset'])
+        clients = result['clients']
+        count = result['count']
         return {
             'status': True,
             'data': {
-                'clients': clients
+                'clients': clients,
+                'count': count
             },
             'messages': [
                 {
                     'type': 'info',
                     'text': 'success'
-                }
-            ]
-        }
-    except KeyError as e:
-        log.error('missing key: %s', e)
-        return {
-            'status': False,
-            'messages': [
-                {
-                    'type': 'error',
-                    'text': 'An error occured'
                 }
             ]
         }
@@ -89,23 +78,18 @@ def client_get(request):
         }
 
     try:
-        provider_name = request.registry.settings['data.provider.clients']
-        provider = request.data.get_provider(provider_name)
-
-        result = provider.query(
-            'client.get',
-            (client_id, )
-        )
-        (client) = result[0]
+        provider = get_provider(request)
+        client = Client(provider)
+        client.get_by_id(client_id)
         return {
             'status': True,
             'data': {
                 'client': {
-                    'id': client[0],
-                    'active': client[1],
-                    'created': client[2],
-                    'name': client[3],
-                    'description': client[4]
+                    'id': client.get_id(),
+                    'active': client.is_active(),
+                    'created': client.get_created(),
+                    'name': client.get_name(),
+                    'description': client.get_description()
                 } 
             }
         }
@@ -137,25 +121,10 @@ def clients_add(request):
     name = params['name'] if 'name' in params else ''
     description = params['description'] if 'description' in params else ''
 
-    if (name == ''):
-        return {
-            'status': False,
-            'messages': [
-                {
-                    'type': 'error',
-                    'text': 'Client name is required'
-                }
-            ]
-        }
-
     try:
-        provider_name = request.registry.settings['data.provider.clients']
-        provider = request.data.get_provider(provider_name)
-
-        provider.query(
-            'clients.add',
-            (name, description)
-        )
+        provider = get_provider(request)
+        client = Client(provider)
+        client.add(name, description)
 
         return {
             'status': True,
@@ -174,7 +143,7 @@ def clients_add(request):
             'messages': [
                 {
                     'type': 'error',
-                    'text': 'An error occured'
+                    'text': str(e)
                 }
             ]
         }

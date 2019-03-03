@@ -18,3 +18,18 @@ def includeme(config):
         'clients.add',
         '/api/v1/clients/add'
     )
+
+    config.add_route(
+        'organizations.list',
+        '/api/v1/clients/organizations'
+    )
+
+    config.add_route(
+        'organizations.add',
+        '/api/v1/clients/organizations/add'
+    )
+
+    config.add_route(
+        'organizations.tree',
+        '/api/v1/clients/organizations/tree'
+    )

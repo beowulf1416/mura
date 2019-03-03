@@ -162,14 +162,6 @@ def clients(request):
     log.info('view: user.clients')
 
     try:
-        # provider_name = request.registry.settings['data.provider.security']
-        # provider = request.data.get_provider(provider_name)
-    
-        # result = provider.query(
-        #     'user.clients', 
-        #     ()
-        # )
-        # clients = [{ 'id': r[0], 'name': r[1] }  for r in result['result'] ]
         params = request.json_body
         user_id = params['user_id'] if 'user_id' in params else ''
 
@@ -494,17 +486,22 @@ def permissions(request):
 
     try:
         session = request.session
-        session_id = session.get_session_id()
+        # session_id = session.get_session_id()
+        user_id = session['user_id']
+        client_id = session['client_id']
 
-        provider_name = request.registry.settings['data.provider.security']
-        provider = request.data.get_provider(provider_name)
+        # provider_name = request.registry.settings['data.provider.security']
+        # provider = request.data.get_provider(provider_name)
     
-        result = provider.query(
-            'user.permissions', 
-            (session_id, )
-        )
+        # result = provider.query(
+        #     'user.permissions', 
+        #     (session_id, )
+        # )
         # log.debug(result)
-        permissions = [ r[0] for r in result['result'] ]
+        provider = get_provider(request)
+        user = User(provider)
+        result = user.get_permissions(user_id, client_id)
+        permissions = [ r[0] for r in result ]
 
         return {
             'status': True,
